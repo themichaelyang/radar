@@ -1,14 +1,18 @@
 'use strict';
 
-const server = require('http').createServer();
 const fs = require('fs');
 const process = require('process');
 
+const OPTIONS = {
+  key: fs.readFileSync(__dirname + '/keys/server.pem'),
+  cert: fs.readFileSync(__dirname + '/keys/server.crt')
+};
 const CLIENT_DIR = '/src/client';
 const PORT = 3000;
 
 let previousRequestDate;
 
+const server = require('https').createServer(OPTIONS);
 server.on('request', (request, response) => {
   let url = CLIENT_DIR + (request.url === '/' ? '/index.html' : request.url);
   let currentDirectory = process.cwd();
@@ -16,7 +20,7 @@ server.on('request', (request, response) => {
     if (error) {
       if (error.code === 'ENOENT') {
         response.writeHead(400);
-        response.end("404: Can't find " + url);
+        response.end("404: Couldn't find " + url);
       }
       else {
         response.writeHead(500);
@@ -39,3 +43,9 @@ server.on('request', (request, response) => {
 });
 
 server.listen(PORT);
+console.log('Listening on: ' + PORT);
+
+// http://stackoverflow.com/questions/3653065/get-local-ip-address-in-node-js
+require('dns').lookup(require('os').hostname(), (err, add, fam) => {
+  console.log('http://' +add + ':' + PORT);
+})
