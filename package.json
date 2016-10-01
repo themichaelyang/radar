@@ -18,5 +18,8 @@
   "homepage": "https://github.com/themichaelyang/radar#readme",
   "dependencies": {
     "webrtc-adapter": "^2.0.3"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1"
   }
 }
