@@ -2,8 +2,8 @@
 
 let config = {};
 
-config.connection = {};
-config.offer = {};
+config.connection = null;
+config.offer = null;
 config.channel = {
   ordered: false, // unreliable data channel
   maxPacketLifeTime: 500, // millis

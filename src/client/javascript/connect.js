@@ -21,27 +21,38 @@ function connect(calling) {
 // could combine makeOffer and makeAnswer
 function makeOffer(connection) {
   connection.createOffer(config.offer)
-  .then(offer => return connection.setLocalDescription(offer))
+  .then(offer => { return connection.setLocalDescription(offer) })
   .then(() => sendSessionDescription(connection.localDescription))
   .catch(error => console.error("createOffer() or setLocalDescription() failed: "+error));
 }
 
 function makeAnswer(connection) {
   connection.createAnswer(config.offer)
-  .then(answer => return connection.setLocalDescription(answer))
+  .then(answer => { return connection.setLocalDescription(answer) })
   .then(() => sendSessionDescription(connection.localDescription))
   .catch(error => console.error("createAnswer() or setLocalDescription() failed: "+error));
 }
 
-function sendSessionDescription(description) {
+function sendSessionDescription(offer) {
   // implement
+  console.log(offer);
 }
 
-// returns promise
-// function recieveSessionDescription(connection, description) {
-//   connection.setRemoteDescription(description)
-//   .then(() => connection.remoteDescription);
-// }
+function receiveSessionDescription(connection, receivedDescription) {
+  connection.setRemoteDescription(receivedDescription)
+  .then(() => {
+    console.log("Received and set remoteDescription");
+    if (connection.localDescription) { // careful of this -- might wanna have diff function for caller and callee
+      // if theres local desc, should be caller
+      // idk what it should do tbh
+      console.log("Should be connected if ICE is done");
+    }
+    else {
+      // should be callee (answering)
+      makeAnswer(connection);
+    }
+  });
+}
 
 function bindICECandidateHandler(connection) {
   connection.onicecandidate = (event) => {
