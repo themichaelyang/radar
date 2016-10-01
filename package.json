@@ -1,0 +1,22 @@
+{
+  "name": "radar",
+  "version": "0.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/themichaelyang/radar.git"
+  },
+  "author": "Michael Yang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/themichaelyang/radar/issues"
+  },
+  "homepage": "https://github.com/themichaelyang/radar#readme",
+  "dependencies": {
+    "webrtc-adapter": "^2.0.3"
+  }
+}
