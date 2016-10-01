@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/themichaelyang/radar#readme",
   "dependencies": {
+    "socket.io": "^1.4.8",
     "webrtc-adapter": "^2.0.3"
   },
   "devDependencies": {
