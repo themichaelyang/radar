@@ -8,14 +8,11 @@ function process(context, video) {
   // could use fast typed arrays for processing
   // https://hacks.mozilla.org/2011/12/faster-canvas-pixel-manipulation-with-typed-arrays/
 
-  for (let i = 0; i < data.length; i += 4) {
-    let r = data[i];
-    let g = data[i+1];
-    let b = data[i+2];
-    let a = data[i+3];
-    data[i+2] = 0;
-  }
+  // to hsv
+  // algorithm from http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+  // http://math.stackexchange.com/questions/556341/rgb-to-hsv-color-conversion-algorithm
 
+  colorNormalize(data);
   context.putImageData(imageData, 0, 0);
 }
 

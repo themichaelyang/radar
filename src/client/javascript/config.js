@@ -2,7 +2,7 @@
 
 const config = {};
 let aspect = 1280 / 720;
-let height = 360;
+let height = 180;
 
 config.connection = {
   iceServers: [
