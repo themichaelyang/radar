@@ -7,12 +7,13 @@ function process(context, video) {
 
   // could use fast typed arrays for processing
   // https://hacks.mozilla.org/2011/12/faster-canvas-pixel-manipulation-with-typed-arrays/
-  for (let i = 0; i < data.length; i++) {
-    let r = data[i++];
-    let g = data[i++];
-    let b = data[i++];
-    b = 0;
-    let a = data[i++];
+
+  for (let i = 0; i < data.length; i += 4) {
+    let r = data[i];
+    let g = data[i+1];
+    let b = data[i+2];
+    let a = data[i+3];
+    data[i+2] = 0;
   }
 
   context.putImageData(imageData, 0, 0);
