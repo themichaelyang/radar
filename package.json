@@ -5,8 +5,9 @@
   "main": "src/server/main.js",
   "scripts": {
     "start": "node src/server/main.js",
-    "heroku": "heroku local web",
-    "test": ""
+    "start-heroku": "heroku local web",
+    "test": "",
+    "push": "git push origin master; git push heroku master"
   },
   "repository": {
     "type": "git",
