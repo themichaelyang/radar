@@ -4,6 +4,7 @@
 const fs = require('fs');
 const process = require('process');
 
+// self signed keys only used for local testing -- heroku has https default
 const OPTIONS = {
   // key: fs.readFileSync(__dirname + '/keys/server.pem'),
   // cert: fs.readFileSync(__dirname + '/keys/server.crt')

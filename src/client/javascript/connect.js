@@ -8,7 +8,7 @@ function connect(calling) {
 
   if (calling) {
     let channel = connection.createDataChannel("", config.channel);
-    console.log(channel);
+    // console.log(channel);
     bindDataChannelHandlers(channel);
 
     makeOffer(connection);
@@ -33,7 +33,7 @@ function makeOffer(connection) {
   })
   .then(() => sendSessionDescription(connection.localDescription))
   .catch(error => console.error('createOffer() or setLocalDescription() failed: '+error));
-  console.log('Made and sent Offer')
+  console.log('Made and sent offer')
 }
 
 function makeAnswer(connection) {
@@ -41,7 +41,7 @@ function makeAnswer(connection) {
   .then(answer => { return connection.setLocalDescription(answer) })
   .then(() => sendSessionDescription(connection.localDescription))
   .catch(error => console.error('createAnswer() or setLocalDescription() failed: '+error));
-  console.log('Made and sent Answer');
+  console.log('Made and sent answer');
 }
 
 function sendSessionDescription(offer) {
@@ -54,11 +54,11 @@ function receiveSessionDescription(connection, receivedDescription) {
   connection.setRemoteDescription(receivedDescription)
   .then(() => {
     console.log('Received and set remoteDescription');
-    console.log(connection.localDescription);
+    // console.log(connection.localDescription);
     if (!isEmptyDescription(connection.localDescription)) { // technically should be null before set, according to spec
       // if theres local desc, should be caller
       // idk what it should do tbh
-      console.log('Should be connected if ICE is done');
+      // console.log('Should be connected if ICE is done');
     }
     else {
       // should be callee (answering)

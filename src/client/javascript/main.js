@@ -1,16 +1,18 @@
-// DEPRECIATED FOR NOW
-// general main file 
-let socket = io(); // don't make this global
-
 function main() {
-  if (window.RTCPeerConnection) { // detect if there is webrtc peer connection even
-    // todo: assign random room names and have users enter room name, maybe password
-    socket.emit('join_room', {roomName: '123'});
-    socket.on('joined_room', (data) => { console.log('Room "' + data.roomName + '" joined') });
-    // detect user agent
-  }
-  else {
-    document.body.innerHTML = "You don't have WebRTC support!";
+  if (navigator.mediaDevices.enumerateDevices) {
+    navigator.mediaDevices.enumerateDevices().then((devices) => {
+      // count cameras to determine device
+      let cameras = devices.filter((mediaDevice) => {
+        return mediaDevice.kind === 'videoinput';
+      });
+
+      if (cameras.length >= 2) {
+        document.body.innerHTML += '<p>probably a phone/tablet</p>';
+      }
+      else {
+        document.body.innerHTML += '<p>probably a computer</p>';
+      }
+    });
   }
 }
 
