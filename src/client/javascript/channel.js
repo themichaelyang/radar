@@ -10,17 +10,17 @@ function awaitDataChannel(connection) {
 // later differentiate between caller and receiver
 function bindDataChannelHandlers(dataChannel) {
   dataChannel.onopen = () => {
-    console.log("%cRTCDataChannel now open and ready to receive messages", "color:red;");
+    console.log("%cRTCDataChannel now open and ready to receive messages", "color:blue;");
     dataChannel.send("hello!");
   }
-  dataChannel.onmessage = (event) => {
+  dataChannel.onmessage = (event) => { // careful: both clients recieve message sent
     let message = event.data;
-    console.error("RTCDataChannel recieved a message: "+message);
+    console.log("RTCDataChannel recieved a message: "+message);
   }
   dataChannel.onclose = () => {
-    console.error("RTCDataChannel closed");
+    console.log("RTCDataChannel closed");
   }
   dataChannel.onerror = () => {
-    console.error("RTCDataChannel error!");
+    console.log("RTCDataChannel error!");
   }
 }
