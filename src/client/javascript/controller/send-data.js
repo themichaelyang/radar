@@ -11,14 +11,21 @@ function beginStreamingData(channel) {
     let context = canvas.getContext('2d');
     document.body.appendChild(canvas);
 
+    // maybe
+    // // not displayed
+    // let processingCanvas = document.createElement('canvas');
+    // processingCanvas.width = canvas.width
+    // processingCanvas.height = canvas.height;
+    // let processingContext = processingCanvas.getContext('2d');
+
     // when testing locally, remember that out of focus tabs slow down setInterval
     // todo: improve with animation request
     window.setInterval(() => {
-      run(context, webcam);
+      run(context, processingContext, webcam);
     }, 1000 / config.fps);
   });
 }
 
-function run(context, webcam) {
-  context.drawImage(webcam, 0, 0, webcam.videoWidth, webcam.videoHeight);
+function run(context, video) {
+  process(context, video);
 }
