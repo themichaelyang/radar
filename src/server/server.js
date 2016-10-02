@@ -1,4 +1,5 @@
 'use strict';
+const fs = require('fs');
 
 function createServer(clientDirectory, options) {
   let server = require('https').createServer(options);
