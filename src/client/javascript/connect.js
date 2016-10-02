@@ -26,7 +26,11 @@ function connect(calling) {
 // could combine makeOffer and makeAnswer
 function makeOffer(connection) {
   connection.createOffer(config.offer)
-  .then(offer => { return connection.setLocalDescription(offer) })
+  .then(offer => {
+    // patchSDP(offer); // increase throughput
+    // console.log(offer);
+    return connection.setLocalDescription(offer)
+  })
   .then(() => sendSessionDescription(connection.localDescription))
   .catch(error => console.error('createOffer() or setLocalDescription() failed: '+error));
   console.log('Made and sent Offer')
@@ -89,3 +93,14 @@ function bindICECandidateHandlers(connection) {
 function isEmptyDescription(description) {
   return !(description.type && description.sdp);
 }
+
+// https://bloggeek.me/send-file-webrtc-data-api/
+// have to fix the chrome hardcoded sdp value to speed up data transfers
+// ONLY APPLIES TO CHROME VERSIONS BEFORE 2013, REMOVE
+// function patchSDP(offer) {
+//   let split = offer.sdp.split("b=AS:30");
+//   let newSDP = (split.length > 1) ? split[0] + "b=AS:1638400" + split[1] : offer.sdp;
+//   // console.log(offer.sdp);
+//   // console.log(newSDP);
+//   offer.sdp = newSDP;
+// }

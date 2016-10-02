@@ -1,6 +1,6 @@
 function sendData(channel) {
   window.setInterval(() => {
-    channel.send(new Date().toString());
+    channel.send('hello');
     console.log('sent');
   }, 100);
 
