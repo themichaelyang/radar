@@ -2,7 +2,7 @@ function connect(calling) {
   console.log("Created RTCPeerConnection");
 
   let connection = new RTCPeerConnection(config.connection);
-  bindICECandidateHandler(connection);
+  bindICECandidateHandlers(connection);
 
   if (calling) {
     let channel = connection.createDataChannel(config.channel);
@@ -54,7 +54,7 @@ function receiveSessionDescription(connection, receivedDescription) {
   });
 }
 
-function bindICECandidateHandler(connection) {
+function bindICECandidateHandlers(connection) {
   connection.onicecandidate = (event) => {
     if (event.candidate) {
       sendICECandidate(event.candidate); // trickle ICE candidates
@@ -64,8 +64,13 @@ function bindICECandidateHandler(connection) {
       console.log("Finished sending ICE candidates");
     }
   }
+
+  socket.on('remote_ICE_candidate', (data) => {
+    console.log(data);
+    // add to ice candidates
+  });
 }
 
 function sendICECandidate(candidate) {
-  // implement
+  socket.emit()
 }

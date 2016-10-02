@@ -29,15 +29,16 @@ io.on('connection', (socket) => {
 
   socket.on('join_room', (data) => {
     socket.join(data.roomNumber);
-    socket.broadcast.to(socket.id).emit('joined_room', data);
+    console.log('join room ' + data);
+    socket.emit('joined_room', data);
   });
 
   socket.on('send_description', (data) => {
-    socket.broadcast.emit('session_description', data);
+    socket.broadcast.emit('remote_session_description', data);
   });
 
   socket.on('send_ICE_candidate', (data) => {
-    socket.broadcast.emit('ICE_candidate', data);
+    socket.broadcast.emit('remote_ICE_candidate', data);
   })
 });
 
