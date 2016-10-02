@@ -2,7 +2,13 @@
 
 let config = {};
 
-config.connection = null;
+config.connection = {
+  iceServers: [
+    {
+      urls: "stun:stun.l.google.com:19302"
+    }
+  ]
+};
 config.offer = null;
 config.channel = {
   ordered: false, // unreliable data channel
