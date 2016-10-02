@@ -1,5 +1,6 @@
 // function
 
+// probably incorrect
 function colorNormalize(data) {
   for (let i = 0; i < data.length; i += 4) {
     let r = data[i];
@@ -12,9 +13,9 @@ function colorNormalize(data) {
     let gNormalized = g / colorSum;
     let bNormalized = b / colorSum;
 
-    data[i] = rNormalized * 255;
-    data[i+1] = gNormalized * 255;
-    data[i+2] = bNormalized * 255;
+    data[i] = rNormalized * 2 * 255;
+    data[i+1] = gNormalized * 2 * 255;
+    data[i+2] = bNormalized * 2 * 255;
     data[i+3] = 255;
   }
 }
@@ -37,7 +38,7 @@ function greyWorldNormalize(data) {
     gSum += g;
     bSum += b;
   }
-  // let avg = (rSum + gSum + bSum) / data.length;
+  let avg = (rSum + gSum + bSum) / data.length;
   for (let i = 0; i < data.length; i += 4) {
     let r = data[i];
     let g = data[i+1];
@@ -51,11 +52,16 @@ function greyWorldNormalize(data) {
     data[i+1] = ((g * n) / (gSum * 3)) * 255;
     data[i+2] = ((b * n) / (bSum * 3)) * 255;
     data[i+3] = 255;
-    if (90 < i && i < 100) {
-      console.log(((r * n) / rSum));
-    }
+    // if (90 < i && i < 100) {
+    //   console.log(((r * n) / rSum));
+    // }
   }
 }
+
+
+// to hsv
+// algorithm from http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
+// http://math.stackexchange.com/questions/556341/rgb-to-hsv-color-conversion-algorithm
 
 function hsvNormalize(data) {
   for (let i = 0; i < data.length; i += 4) {
