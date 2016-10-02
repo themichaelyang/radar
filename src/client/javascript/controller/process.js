@@ -13,7 +13,7 @@ function process(context, video) {
   // http://math.stackexchange.com/questions/556341/rgb-to-hsv-color-conversion-algorithm
 
   // colorNormalize(data);
-  hsvNormalize(data);
+  greyWorldNormalize(data);
   context.putImageData(imageData, 0, 0);
 }
 

@@ -12,12 +12,40 @@ function colorNormalize(data) {
     let gNormalized = g / colorSum;
     let bNormalized = b / colorSum;
 
-    // console.log(r, g, b);
-    // console.log(rNormalized, gNormalized, bNormalized);
-
     data[i] = rNormalized * 255;
     data[i+1] = gNormalized * 255;
     data[i+2] = bNormalized * 255;
+    data[i+3] = 255;
+  }
+}
+
+// https://en.wikipedia.org/wiki/Color_normalization
+// grey world algorithm
+
+function greyWorldNormalize(data) {
+  let rSum = 0;
+  let gSum = 0;
+  let bSum = 0;
+  let n = data.length / 4;
+  for (let i = 0; i < data.length; i += 4) {
+    let r = data[i];
+    let g = data[i+1];
+    let b = data[i+2];
+    // let a = data[i+3];
+
+    rSum += r;
+    gSum += g;
+    bSum += b;
+  }
+  for (let i = 0; i < data.length; i += 4) {
+    let r = data[i];
+    let g = data[i+1];
+    let b = data[i+2];
+    // let a = data[i+3];
+
+    data[i] = (r * n / rSum) * 255;
+    data[i+1] = (g * n / gSum) * 255;
+    data[i+2] = (b * n / bSum) * 255;
     data[i+3] = 255;
   }
 }
@@ -33,16 +61,12 @@ function hsvNormalize(data) {
     hsv.v = 0.8;
     let rgb = HSVtoRGB(hsv);
 
-    // console.log(r, g, b);
-    // console.log(rNormalized, gNormalized, bNormalized);
-
     data[i] = rgb.r;
     data[i+1] = rgb.g;
     data[i+2] = rgb.b;
     data[i+3] = 255;
   }
 }
-
 
 // hsv functions from
 // http://stackoverflow.com/questions/17242144/javascript-convert-hsb-hsv-color-to-rgb-accurately
