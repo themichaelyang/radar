@@ -21,7 +21,7 @@ function beginStreamingData(channel) {
     // when testing locally, remember that out of focus tabs slow down setInterval
     // todo: improve with animation request
     window.setInterval(() => {
-      run(context, processingContext, webcam);
+      run(context, webcam);
     }, 1000 / config.fps);
   });
 }

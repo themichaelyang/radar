@@ -1,6 +1,6 @@
 function process(context, video) {
   context.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-  let processingImageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
+  let imageData = context.getImageData(0, 0, context.canvas.width, context.canvas.height);
   let width = context.canvas.width;
   let height = context.canvas.height;
   let data = imageData.data;
@@ -11,10 +11,11 @@ function process(context, video) {
     let r = data[i++];
     let g = data[i++];
     let b = data[i++];
+    b = 0;
     let a = data[i++];
   }
 
-  ctx.putImageData(processingImageData, 0, 0);
+  context.putImageData(imageData, 0, 0);
 }
 
 function indexToCoordinate(index, width) {
