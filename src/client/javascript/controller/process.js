@@ -14,6 +14,13 @@ function process(context, video) {
 
   // colorNormalize(data);
   greyWorldNormalize(data);
+  // colorNormalize(data);
+  // greyWorldNormalize(data);
+  // colorNormalize(data);
+  // greyWorldNormalize(data);
+  // colorNormalize(data);
+  // greyWorldNormalize(data);
+  // colorNormalize(data);
   context.putImageData(imageData, 0, 0);
 }
 

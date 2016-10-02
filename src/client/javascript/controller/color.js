@@ -21,7 +21,7 @@ function colorNormalize(data) {
 
 // https://en.wikipedia.org/wiki/Color_normalization
 // grey world algorithm
-
+// not sure if real grey world tbh
 function greyWorldNormalize(data) {
   let rSum = 0;
   let gSum = 0;
@@ -37,16 +37,20 @@ function greyWorldNormalize(data) {
     gSum += g;
     bSum += b;
   }
+  let avg = (rSum + gSum + bSum) / data.length;
   for (let i = 0; i < data.length; i += 4) {
     let r = data[i];
     let g = data[i+1];
     let b = data[i+2];
     // let a = data[i+3];
 
-    data[i] = (r * n / rSum) * 255;
-    data[i+1] = (g * n / gSum) * 255;
-    data[i+2] = (b * n / bSum) * 255;
+    data[i] = ((r * n) / rSum) * avg;
+    data[i+1] = ((g * n) / gSum) * avg;
+    data[i+2] = ((b * n) / bSum) * avg;
     data[i+3] = 255;
+    if (90 < i && i < 100) {
+      console.log(((r * n) / rSum));
+    }
   }
 }
 

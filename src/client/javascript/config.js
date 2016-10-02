@@ -2,7 +2,7 @@
 
 const config = {};
 let aspect = 1280 / 720;
-let height = 90; // use true filtering later -- for now just lower res;
+let height = 180; // use true filtering later -- for now just lower res;
 
 config.connection = {
   iceServers: [
