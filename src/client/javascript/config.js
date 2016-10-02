@@ -25,3 +25,4 @@ config.constraints = {
     height: { exact: height } // 720p
   }
 };
+config.fps = 30;

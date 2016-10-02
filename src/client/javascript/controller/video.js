@@ -1,5 +1,6 @@
 // todo: move everything into nice modules and objects!
 // these random functions everywhere is not cutting it for me
+// polluting that global scope >:-(
 
 // most functions should be pretty generic and atomic
 function startVideo(options) {
