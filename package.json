@@ -5,6 +5,7 @@
   "main": "src/server/main.js",
   "scripts": {
     "start": "node src/server/main.js",
+    "heroku": "heroku local web",
     "test": ""
   },
   "repository": {

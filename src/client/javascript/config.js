@@ -1,11 +1,13 @@
 'use strict';
 
-let config = {};
+const config = {};
+let aspect = 1280 / 720;
+let height = 360;
 
 config.connection = {
   iceServers: [
     {
-      urls: "stun:stun.l.google.com:19302"
+      urls: 'stun:stun.l.google.com:19302'
     }
   ]
 };
@@ -18,7 +20,8 @@ config.channel = {
 config.constraints = {
   audio: false,
   video: {
-    width: { exact: 1280 },
-    height: { exact: 720 } // 720p
+    facingMode: 'user',
+    width: { exact: aspect * height },
+    height: { exact: height } // 720p
   }
 };

@@ -33,7 +33,7 @@ function makeOffer(connection) {
   })
   .then(() => sendSessionDescription(connection.localDescription))
   .catch(error => console.error('createOffer() or setLocalDescription() failed: '+error));
-  console.log('Made and sent offer')
+  console.log('Made and sent offer');
 }
 
 function makeAnswer(connection) {
@@ -76,7 +76,7 @@ function bindICECandidateHandlers(connection) {
     else {
       console.log('Finished sending ICE candidates');
     }
-  }
+  };
 
   socket.on('remote_ICE_candidate', (data) => {
     connection.addIceCandidate(data.candidate).then(() => {

@@ -3,7 +3,7 @@ function awaitDataChannel(connection) {
     connection.ondatachannel = (event) => {
       let dataChannel = event.channel;
       resolve(dataChannel);
-    }
+    };
   });
 }
 
@@ -14,19 +14,16 @@ function bindDataChannelHandlers(dataChannel) {
     // for (let i = 0; i < 200; i++) {
     //   dataChannel.send("hello!");
     // }
-    //  beginStreamingData(dataChannel);
-    
-    sendData(dataChannel);
-
-  }
+     beginStreamingData(dataChannel);
+  };
   dataChannel.onmessage = (event) => { // careful: both clients recieve message sent
     let message = event.data;
     console.log("RTCDataChannel recieved a message: "+message);
-  }
+  };
   dataChannel.onclose = () => {
     console.log("RTCDataChannel closed");
-  }
+  };
   dataChannel.onerror = () => {
     console.log("RTCDataChannel error!");
-  }
+  };
 }

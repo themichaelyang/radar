@@ -8,6 +8,7 @@ function main() {
 
       if (cameras.length >= 2) {
         document.body.innerHTML += '<p>probably a phone/tablet</p>';
+        // keep in mind that new computers are like weird mixes of both
       }
       else {
         document.body.innerHTML += '<p>probably a computer</p>';
