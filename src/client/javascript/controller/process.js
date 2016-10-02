@@ -12,7 +12,8 @@ function process(context, video) {
   // algorithm from http://www.niwa.nu/2013/05/math-behind-colorspace-conversions-rgb-hsl/
   // http://math.stackexchange.com/questions/556341/rgb-to-hsv-color-conversion-algorithm
 
-  colorNormalize(data);
+  // colorNormalize(data);
+  hsvNormalize(data);
   context.putImageData(imageData, 0, 0);
 }
 
