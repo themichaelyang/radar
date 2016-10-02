@@ -11,7 +11,13 @@ function awaitDataChannel(connection) {
 function bindDataChannelHandlers(dataChannel) {
   dataChannel.onopen = () => {
     console.log("%cRTCDataChannel now open and ready to receive messages", "color:blue;");
-    dataChannel.send("hello!");
+    // for (let i = 0; i < 200; i++) {
+    //   dataChannel.send("hello!");
+    // }
+    //  beginStreamingData(dataChannel);
+    
+    sendData(dataChannel);
+
   }
   dataChannel.onmessage = (event) => { // careful: both clients recieve message sent
     let message = event.data;

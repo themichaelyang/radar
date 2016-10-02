@@ -7,7 +7,8 @@ function connect(calling) {
   });
 
   if (calling) {
-    let channel = connection.createDataChannel(config.channel);
+    let channel = connection.createDataChannel("", config.channel);
+    console.log(channel);
     bindDataChannelHandlers(channel);
 
     makeOffer(connection);

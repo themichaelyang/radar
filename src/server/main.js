@@ -1,5 +1,6 @@
 'use strict';
 
+// can have it redirect http --> https in the future?
 const fs = require('fs');
 const process = require('process');
 

@@ -6,7 +6,7 @@ config.connection = null;
 config.offer = null;
 config.channel = {
   ordered: false, // unreliable data channel
-  maxPacketLifeTime: 500, // millis
+  maxPacketLifeTime: 100, // millis
   maxRetransmits: 0 // don't send again
 };
 config.constraints = {
