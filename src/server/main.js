@@ -5,11 +5,11 @@ const fs = require('fs');
 const process = require('process');
 
 const OPTIONS = {
-  key: fs.readFileSync(__dirname + '/keys/server.pem'),
-  cert: fs.readFileSync(__dirname + '/keys/server.crt')
+  // key: fs.readFileSync(__dirname + '/keys/server.pem'),
+  // cert: fs.readFileSync(__dirname + '/keys/server.crt')
 };
 const CLIENT_DIR = '/src/client';
-const PORT = 3000;
+const PORT = process.env.PORT || 8080;
 
 let server = require('./server.js')(CLIENT_DIR, OPTIONS);
 

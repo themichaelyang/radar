@@ -2,7 +2,8 @@
 const fs = require('fs');
 
 function createServer(clientDirectory, options) {
-  let server = require('https').createServer(options);
+  // let server = require('https').createServer(options);
+  let server = require('http').createServer();
   let previousRequestDate;
 
   server.on('request', (request, response) => {
