@@ -27,6 +27,7 @@ function greyWorldNormalize(data) {
   let rSum = 0;
   let gSum = 0;
   let bSum = 0;
+  // let ySum = 0;
   let n = data.length / 4;
   for (let i = 0; i < data.length; i += 4) {
     let r = data[i];
@@ -37,20 +38,30 @@ function greyWorldNormalize(data) {
     rSum += r;
     gSum += g;
     bSum += b;
+    // let y = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    // ySum += y;
   }
   let avg = (rSum + gSum + bSum) / data.length;
+  // luminance calculation
+  // from http://stackoverflow.com/questions/596216/formula-to-determine-brightness-of-rgb-color
+  let ySum = (0.299 * rSum + 0.587 * gSum + 0.114 * bSum) / 255;
+  let yAvg = ySum / n;
+  console.log(yAvg);
   for (let i = 0; i < data.length; i += 4) {
     let r = data[i];
     let g = data[i+1];
     let b = data[i+2];
     // let a = data[i+3];
 
-    // data[i] = ((r * n) / rSum) * avg;
-    // data[i+1] = ((g * n) / gSum) * avg;
-    // data[i+2] = ((b * n) / bSum) * avg;
-    data[i] = ((r * n) / (rSum * 3)) * 255;
-    data[i+1] = ((g * n) / (gSum * 3)) * 255;
-    data[i+2] = ((b * n) / (bSum * 3)) * 255;
+    // use luminance roughly
+    // technically should recalculate rgb based on avg luminance
+    data[i] = ((r * n) / rSum) * yAvg * 255;
+    data[i+1] = ((g * n) / gSum) * yAvg * 255;
+    data[i+2] = ((b * n) / bSum) * yAvg * 255;
+    // mean value is (1, 1, 1)
+    // data[i] = ((r * n) / (rSum * 2)) * 255;
+    // data[i+1] = ((g * n) / (gSum * 2)) * 255;
+    // data[i+2] = ((b * n) / (bSum * 2)) * 255;
     data[i+3] = 255;
     // if (90 < i && i < 100) {
     //   console.log(((r * n) / rSum));

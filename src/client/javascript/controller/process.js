@@ -10,7 +10,7 @@ function process(context, video) {
 
   // colorNormalize(data);
   greyWorldNormalize(data);
-  colorDetection(data, [{r: 255, g: 0, b: 0}]);
+  // colorDetection(data, [{r: 93, g:80, b:91}]);
 
   context.putImageData(imageData, 0, 0);
 }
@@ -22,7 +22,7 @@ function colorDetection(data, colorProfile) {
     let b = data[i+2];
 
     for (let j = 0; j < colorProfile.length; j++) {
-      if (colorDistance(colorProfile[j], {r: r, g: g, b: b}) < 200) {
+      if (colorDistance(colorProfile[j], {r: r, g: g, b: b}) < 10) {
         setColor(data, i, {r: 255, g: 255, b: 255});
         break;
       }
@@ -39,6 +39,7 @@ function setColor(data, index, color) {
   data[index+2] = color.b;
 }
 
+// should set to direct r g b distances, i think this can introduce errors
 function colorDistance(co, ct) {
   return Math.sqrt(Math.pow(co.r - ct.r, 2) + Math.pow(co.g - ct.g, 2) + Math.pow(co.b - ct.b, 2));
 }

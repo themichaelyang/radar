@@ -24,6 +24,7 @@ io.on('connection', (socket) => {
     socket.emit('joined_room', data);
   });
 
+  // should check if socket is in room
   socket.on('send_session_description', (data) => {
     socket.broadcast.emit('remote_session_description', data);
   });
