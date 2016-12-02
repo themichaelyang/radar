@@ -2,10 +2,28 @@ let socket = io(); // don't make this global
 
 function main() {
   if (window.RTCPeerConnection) { // detect if there is webrtc peer connection even
-    socket.emit('join_room', {roomName: '123'});
-    socket.on('joined_room', (data) => { console.log('Room "' + data.roomName + '" joined') });
-    connect(false);
-    // todo: detect user agent
+    let enter = document.getElementById('connect-button');
+    let roomNameInput = document.getElementById('room-name-input');
+    let form = document.getElementById('form');
+    window.channel = new Channel();
+    form.onsubmit = (event) => {
+      event.preventDefault(); // allows enter to be clicked lol
+    };
+
+    enter.addEventListener('click', (event) => {
+      let roomName = roomNameInput.value;
+
+      channel.on('message', (message) => {
+        console.log(message.data);
+      });
+
+      channel.connect(roomName).then((dataChannel) => {
+        dataChannel.send("what's up from "+channel.clientId);
+      });
+
+      enter.disabled = true;
+    });
+
   }
   else {
     document.body.innerHTML = "You don't have WebRTC support!";

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title></title>
+  <title>controller</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="stylesheets/main.css"> -->
@@ -14,22 +14,38 @@
   <!-- socket.io server also serves this file -->
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
-  <script src="javascript/redirect.js"></script>
-  <script src="javascript/config.js"></script>
-  <script src="javascript/channel.js"></script>
-  <script src="javascript/connect.js"></script>
-  <script src="javascript/controller/process.js"></script>
-  <script src="javascript/controller/color.js"></script>
+  <script src="javascript/lib/redirect.js"></script>
+  <script src="javascript/lib/config.js"></script>
+  <script src="javascript/lib/channel.js"></script>
+
   <script src="javascript/controller/video.js"></script>
   <script src="javascript/controller/send-data.js"></script>
   <script src="javascript/controller/main.js"></script>
+
+  <style>
+    #room-name-input {
+      border: 1px solid lightgrey;
+    }
+    #connect-button {
+      border: 1px solid lightgrey;
+      background-color: white;
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+    #connect-button:disabled {
+      color: lightgrey;
+    }
+  </style>
+
 </head>
 <body>
   <h1>
     controller
   </h1>
-  <!-- <button id='train-button'> -->
-    <!-- train -->
-  <!-- </button> -->
+
+  <form id="form">
+    <input id="room-name-input" type="text"/>
+    <input id="connect-button" type="submit" value="Connect"/>
+  </form>
 </body>
 </html>
