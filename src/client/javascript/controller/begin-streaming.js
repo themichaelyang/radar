@@ -5,18 +5,18 @@ function beginStreaming(channel) {
     video: {
       facingMode: 'user',
       width: {
-        exact: 48
-        // exact: 240
+        // exact: 48
+        exact: 240
       },
       height: {
-        exact: 35
-        // exact: 135
+        // exact: 35
+        exact: 135
       }
     }
   };
 
   let config = {
-    fps: 10
+    fps: 25 // do not exceed fps of camera
   };
 
   startVideo(constraints).then((video) => {
@@ -43,9 +43,12 @@ function beginStreaming(channel) {
 
     }, 1000 / config.fps);
 
-    processingContext.fillStyle = "red";
+    // clean up this mess
     let circleRadius = videoContext.canvas.width / 25;
     let oldCoords = {x: 0, y: 0};
+    let width = videoContext.canvas.width;
+    let height = videoContext.canvas.height;
+    processingContext.fillStyle = "green";
 
     function run(currentContext, previousContext, processingContext) {
       frameDifference(currentContext, previousContext, processingContext);
@@ -53,16 +56,18 @@ function beginStreaming(channel) {
 
       if (coords) {
         processingContext.beginPath();
-        processingContext.arc(coords.x, coords.y, circleRadius, 0, 2 * Math.PI);
+        processingContext.arc(coords.x * width, coords.y * height, circleRadius, 0, 2 * Math.PI);
         processingContext.fill();
 
         oldCoords = coords;
         channel.send(JSON.stringify(coords));
       }
       else {
+        processingContext.fillStyle = "red";
         processingContext.beginPath();
-        processingContext.arc(oldCoords.x, oldCoords.y, circleRadius, 0, 2 * Math.PI);
+        processingContext.arc(oldCoords.x * width, oldCoords.y * height, circleRadius, 0, 2 * Math.PI);
         processingContext.fill();
+        processingContext.fillStyle = "green";
       }
 
     }

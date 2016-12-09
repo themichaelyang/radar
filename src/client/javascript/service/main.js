@@ -12,11 +12,29 @@ function main() {
 
     enter.addEventListener('click', (event) => {
       let roomName = roomNameInput.value;
+      let canvas = document.createElement('canvas');
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+
+      let width = canvas.width;
+      let height = canvas.height;
+
+      document.body.append(canvas);
+
+      let ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'red';
 
       channel.on('message', (message) => {
         try {
           console.log(JSON.parse(message.data));
-        } catch (e) {
+          let coords = JSON.parse(message.data);
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          ctx.beginPath();
+          ctx.arc(coords.x * width, coords.y * height, 5, 0, 2 * Math.PI);
+          ctx.fill();
+        }
+        catch(e) {
 
         }
       });
