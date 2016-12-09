@@ -14,7 +14,11 @@ function main() {
       let roomName = roomNameInput.value;
 
       channel.on('message', (message) => {
-        console.log(message.data);
+        try {
+          console.log(JSON.parse(message.data));
+        } catch (e) {
+
+        }
       });
 
       channel.connect(roomName).then((dataChannel) => {

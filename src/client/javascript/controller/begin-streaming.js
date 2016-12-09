@@ -57,6 +57,7 @@ function beginStreaming(channel) {
         processingContext.fill();
 
         oldCoords = coords;
+        channel.send(JSON.stringify(coords));
       }
       else {
         processingContext.beginPath();
@@ -64,7 +65,6 @@ function beginStreaming(channel) {
         processingContext.fill();
       }
 
-      channel.send(coords);
     }
 
     function resetContexts() {
