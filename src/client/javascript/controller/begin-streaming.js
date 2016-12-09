@@ -5,16 +5,18 @@ function beginStreaming(channel) {
     video: {
       facingMode: 'user',
       width: {
-        exact: 240
+        exact: 48
+        // exact: 240
       },
       height: {
-        exact: 135
+        exact: 35
+        // exact: 135
       }
     }
   };
 
   let config = {
-    fps: 30
+    fps: 10
   };
 
   startVideo(constraints).then((video) => {
@@ -41,11 +43,28 @@ function beginStreaming(channel) {
 
     }, 1000 / config.fps);
 
+    processingContext.fillStyle = "red";
+    let circleRadius = videoContext.canvas.width / 25;
+    let oldCoords = {x: 0, y: 0};
+
     function run(currentContext, previousContext, processingContext) {
       frameDifference(currentContext, previousContext, processingContext);
-      // let coords = getCoordinates(differenceMap);
+      let coords = getCoordinates(processingContext, 'x', 'y');
 
-      // channel.send("hello");
+      if (coords) {
+        processingContext.beginPath();
+        processingContext.arc(coords.x, coords.y, circleRadius, 0, 2 * Math.PI);
+        processingContext.fill();
+
+        oldCoords = coords;
+      }
+      else {
+        processingContext.beginPath();
+        processingContext.arc(oldCoords.x, oldCoords.y, circleRadius, 0, 2 * Math.PI);
+        processingContext.fill();
+      }
+
+      channel.send(coords);
     }
 
     function resetContexts() {

@@ -20,6 +20,7 @@
 
   <script src="javascript/controller/begin-streaming.js"></script>
   <script src="javascript/controller/frame-difference.js"></script>
+  <script src="javascript/controller/get-coordinates.js"></script>
   <script src="javascript/controller/main.js"></script>
 
   <style>
@@ -38,6 +39,14 @@
     .video {
       float: left;
       width: 50%;
+      /* http://stackoverflow.com/questions/14068103/disable-antialising-when-scaling-images */
+      image-rendering: optimizeSpeed;             /* STOP SMOOTHING, GIVE ME SPEED  */
+      image-rendering: -moz-crisp-edges;          /* Firefox                        */
+      image-rendering: -o-crisp-edges;            /* Opera                          */
+      image-rendering: -webkit-optimize-contrast; /* Chrome (and eventually Safari) */
+      image-rendering: pixelated; /* Chrome */
+      image-rendering: optimize-contrast;         /* CSS3 Proposed                  */
+      -ms-interpolation-mode: nearest-neighbor;   /* IE8+                           */
     }
   </style>
 
