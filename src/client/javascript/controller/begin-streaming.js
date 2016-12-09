@@ -14,7 +14,7 @@ function beginStreaming(channel) {
   };
 
   let config = {
-    fps: 60
+    fps: 30
   };
 
   startVideo(constraints).then((video) => {
@@ -27,7 +27,7 @@ function beginStreaming(channel) {
     processingCanvas.className += 'video';
 
     document.body.appendChild(video);
-    document.body.appendChild(processingCanvas);
+    document.body.appendChild(processingContext.canvas);
 
     resetContexts();
 
@@ -42,16 +42,16 @@ function beginStreaming(channel) {
     }, 1000 / config.fps);
 
     function run(currentContext, previousContext, processingContext) {
-      let differenceMap = frameDifference(currentContext, previousContext, processingContext);
+      frameDifference(currentContext, previousContext, processingContext);
       // let coords = getCoordinates(differenceMap);
 
-      channel.send("hello");
+      // channel.send("hello");
     }
 
     function resetContexts() {
       previousContext.drawImage(videoContext.canvas, 0, 0); // copy old frame
       copyVideoToContext(videoContext, video); // update current frame
-      processingContext.clearRect(0, 0, processingCanvas.width, processingCanvas.height); // clear processing context
+      // processingContext.clearRect(0, 0, processingCanvas.width, processingCanvas.height); // clear processing context
       // careful: processing context might flicker
     }
   });

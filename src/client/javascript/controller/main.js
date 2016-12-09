@@ -10,11 +10,14 @@ function main() {
     enter.addEventListener('click', (event) => {
       let roomName = roomNameInput.value;
 
+      channel.on('message', (message) => {
+        console.log(message.data);
+      });
+
       channel.connect(roomName).then((dataChannel) => {
         dataChannel.send("what's up from "+channel.clientId);
 
         beginStreaming(dataChannel);
-
       });
 
       enter.disabled = true;

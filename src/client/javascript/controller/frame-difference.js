@@ -1,3 +1,6 @@
+// should be set via config
+window.magic = 0.05;
+
 // takes in contexts
 function frameDifference(current, previous, processing) {
   let currentCanvas = current.canvas;
@@ -12,30 +15,32 @@ function frameDifference(current, previous, processing) {
   let currentPixel = {};
   let previousPixel = {};
 
-  for (let i = 0; i < currentImageData.length; i += 4) {
-    currentPixel.r = currentImageData[i];
-    currentPixel.g = currentImageData[i+1];
-    currentPixel.b = currentImageData[i+2];
+  for (let i = 0; i < currentImageData.data.length; i += 4) {
+    currentPixel.r = currentImageData.data[i];
+    currentPixel.g = currentImageData.data[i+1];
+    currentPixel.b = currentImageData.data[i+2];
 
-    previousPixel.r = previousImageData[i];
-    previousPixel.g = previousImageData[i+1];
-    previousPixel.b = previousImageData[i+2];
+    previousPixel.r = previousImageData.data[i];
+    previousPixel.g = previousImageData.data[i+1];
+    previousPixel.b = previousImageData.data[i+2];
 
     let distance = colorDistance(currentPixel, previousPixel);
-    if (distance > 0.015) {
+    if (distance > window.magic) {
       setImageDataPixel(i, processingImageData, 0, 0, 0, 255);
     }
     else {
       setImageDataPixel(i, processingImageData, 255, 255, 255, 255);
     }
   }
+
+  processing.putImageData(processingImageData, 0, 0);
 }
 
 function setImageDataPixel(index, imageData, r, g, b, a) {
-  imageData[index] = r;
-  imageData[index + 1] = g;
-  imageData[index + 2] = b;
-  imageData[index + 3] = a;
+  imageData.data[index] = r;
+  imageData.data[index + 1] = g;
+  imageData.data[index + 2] = b;
+  imageData.data[index + 3] = a;
 }
 
 // returns value from 0 - 1
