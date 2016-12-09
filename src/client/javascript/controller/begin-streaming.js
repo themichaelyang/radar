@@ -1,22 +1,69 @@
 function beginStreaming(channel) {
 
-  startVideo(config.constraints).then((video) => {
-    let canvas = document.createElement('canvas');
-    canvas.width = webcam.videoWidth;
-    canvas.height = webcam.videoHeight;
-    document.body.appendChild(canvas);
+  let constraints = {
+    audio: false,
+    video: {
+      facingMode: 'user',
+      width: {
+        exact: 240
+      },
+      height: {
+        exact: 135
+      }
+    }
+  };
 
-    let context = canvas.getContext('2d');
+  let config = {
+    fps: 60
+  };
+
+  startVideo(constraints).then((video) => {
+    let videoContext = createContextFromVideo(video);
+    let previousContext = createContextFromVideo(video);
+    let processingContext = createContextFromVideo(video);
+
+    let processingCanvas = processingContext.canvas;
+    video.className += 'video';
+    processingCanvas.className += 'video';
+
+    document.body.appendChild(video);
+    document.body.appendChild(processingCanvas);
+
+    resetContexts();
 
     window.setInterval(() => {
-      run(context, webcam);
+      // videoContext holds the current video frame
+      // processingContext holds the previous video frame
+      // figure out a way to skip the first frame?
+
+      resetContexts();
+      run(videoContext, previousContext, processingContext);
+
     }, 1000 / config.fps);
 
-    function run(context, video) {
-      let differenceMap = frameDifference(context);
-      let coords = getCoordinates(differenceMap);
-      channel.send(coords);
+    function run(currentContext, previousContext, processingContext) {
+      let differenceMap = frameDifference(currentContext, previousContext, processingContext);
+      // let coords = getCoordinates(differenceMap);
+
+      channel.send("hello");
     }
 
+    function resetContexts() {
+      previousContext.drawImage(videoContext.canvas, 0, 0); // copy old frame
+      copyVideoToContext(videoContext, video); // update current frame
+      processingContext.clearRect(0, 0, processingCanvas.width, processingCanvas.height); // clear processing context
+      // careful: processing context might flicker
+    }
   });
+
+  function createContextFromVideo(video) {
+    let canvas = document.createElement('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    return canvas.getContext('2d');
+  }
+
+  function copyVideoToContext(context, video) {
+    context.drawImage(video, 0, 0, context.canvas.width, context.canvas.height);
+  }
 }

@@ -150,7 +150,7 @@
     }
 
     function makeAnswer(connection) {
-      connection.createAnswer(config.offer)
+      connection.createAnswer(channel.config.offer)
       .then(answer => { return connection.setLocalDescription(answer) })
       .then(() => sendDescription(connection.localDescription))
       .catch(error => console.error('createAnswer() or setLocalDescription() failed: '+error));

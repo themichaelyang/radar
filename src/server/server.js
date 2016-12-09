@@ -7,7 +7,8 @@ function createServer(clientDirectory, options) {
   let previousRequestDate;
 
   server.on('request', (request, response) => {
-    let url = clientDirectory + (request.url === '/' ? '/index.html' : request.url);
+    let root = 'src/client';
+    let url = clientDirectory + (request.url === '/' ? root+'/index.html' : root+request.url);
     let currentDirectory = process.cwd();
     fs.readFile(currentDirectory + url, (error, data) => {
       if (error) {
