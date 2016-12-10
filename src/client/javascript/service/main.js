@@ -22,20 +22,33 @@ function main() {
       document.body.append(canvas);
 
       let ctx = canvas.getContext('2d');
-      ctx.fillStyle = 'red';
+      ctx.beginPath();
+      ctx.lineWidth = 10;
+      ctx.lineCap = 'round';
 
       channel.on('message', (message) => {
         try {
           console.log(JSON.parse(message.data));
           let coords = JSON.parse(message.data);
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
+          ctx.fillRect(0, 0, width, height);
 
-          ctx.beginPath();
-          ctx.arc(coords.x * width, coords.y * height, 5, 0, 2 * Math.PI);
-          ctx.fill();
+          if (coords) {
+            ctx.fillStyle = 'red';
+            ctx.lineTo((1 - coords.x) * width, coords.y * height);
+            ctx.stroke();
+            // ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // ctx.beginPath();
+            // ctx.arc(coords.x * width, coords.y * height, 5, 0, 2 * Math.PI);
+            // ctx.fill();
+          }
+          else {
+            ctx.beginPath();
+          }
+          //
         }
         catch(e) {
-
+          console.log(message.data);
         }
       });
 

@@ -5,18 +5,18 @@ function beginStreaming(channel) {
     video: {
       facingMode: 'user',
       width: {
-        // exact: 48
-        exact: 240
+        exact: 48
+        // exact: 240
       },
       height: {
-        // exact: 35
-        exact: 135
+        exact: 35
+        // exact: 135
       }
     }
   };
 
   let config = {
-    fps: 25 // do not exceed fps of camera
+    fps: 15 // do not exceed fps of camera
   };
 
   startVideo(constraints).then((video) => {
@@ -60,7 +60,6 @@ function beginStreaming(channel) {
         processingContext.fill();
 
         oldCoords = coords;
-        channel.send(JSON.stringify(coords));
       }
       else {
         processingContext.fillStyle = "red";
@@ -69,6 +68,8 @@ function beginStreaming(channel) {
         processingContext.fill();
         processingContext.fillStyle = "green";
       }
+
+      channel.send(JSON.stringify(coords));
 
     }
 

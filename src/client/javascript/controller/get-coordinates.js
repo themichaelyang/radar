@@ -5,7 +5,7 @@ function getCoordinates(differenceMap, xName = 'x', yName = 'y') {
 
   let totalX = 0;
   let totalY = 0;
-  // let highestY;
+  let highestY;
   let totalPixels = 0;
 
   let differenceMapImageData = differenceMap.getImageData(0, 0, width, height);
@@ -13,25 +13,25 @@ function getCoordinates(differenceMap, xName = 'x', yName = 'y') {
     if (differenceMapImageData.data[i] === 0) {
       let coord = indexToCoordinate(i / 4, width);
 
-      // if (checkIsPixelSurrounded(coord, differenceMapImageData, width)) {
+      if (checkIsPixelSurrounded(coord, differenceMapImageData, width)) {
         totalX += coord.x;
         totalY += coord.y;
-        // if (!highestY) {
-          // highestY = coord.y;
-        // }
+        if (!highestY) {
+          highestY = coord.y;
+        }
         totalPixels += 1;
-      // }
+      }
     }
   }
 
   let percentChanged = totalPixels / (width * height);
-  if (percentChanged < 0.025 || percentChanged > 0.4) {
+  if (percentChanged < 0.01 || percentChanged > 0.4) {
     return false;
   }
   return {
     [xName]: (totalX / totalPixels) / width,
-    // [yName]: highestY / height
-    [yName]: (totalY / totalPixels) / height
+    [yName]: highestY / height
+    // [yName]: (totalY / totalPixels) / height
   }
 }
 
