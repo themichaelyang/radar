@@ -16,7 +16,8 @@ function beginStreaming(channel) {
   };
 
   let config = {
-    fps: 15 // do not exceed fps of camera
+    fps: 15 // should not exceed fps of camera
+    // will flash if so
   };
 
   startVideo(constraints).then((video) => {

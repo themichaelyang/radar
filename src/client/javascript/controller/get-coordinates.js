@@ -1,4 +1,5 @@
 // could speed this up by using a typed 2d array rather than a canvas context
+// todo: do not send anything if no differences between the frames, to distinguish from not enough differences
 function getCoordinates(differenceMap, xName = 'x', yName = 'y') {
   let width = differenceMap.canvas.width;
   let height = differenceMap.canvas.height;
