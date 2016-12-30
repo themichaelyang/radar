@@ -7,7 +7,7 @@ let del = require('del');
 let exec = require('child_process').exec;
 
 let srcDir = 'src/';
-let appDir = 'app/';
+let appDir = 'dist/';
 
 let serverDir = 'server/';
 let clientDir = 'client/';

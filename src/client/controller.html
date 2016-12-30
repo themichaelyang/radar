@@ -5,9 +5,17 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>controller</title>
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
   <!-- <link rel="stylesheet" href="stylesheets/main.css"> -->
   <!-- <script src="javascript/vendor/adapter.js"></script> -->
+
+  <!-- for cordova -->
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'none' gap:; script-src 'self' https://cdnjs.cloudflare.com  https://webrtc.github.io https://cdn.socket.io; connect-src 'self' https://hoverhand.herokuapp.com wss://hoverhand.herokuapp.com; img-src 'self' data:; style-src 'self' data: 'unsafe-inline'; media-src 'self' data:; font-src 'self' data:"> -->
+
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
 
   <!-- easier for now to serve from cdn -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.20.0/polyfill.min.js"></script>
@@ -16,10 +24,12 @@
   <!-- socket.io server also serves this file -->
   <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
+  <!-- for cordova -->
+  <script src="cordova.js"></script>
+
   <script src="javascript/lib/redirect.js"></script>
   <script src="javascript/lib/channel.js"></script>
   <script src="javascript/lib/start-video.js"></script>
-
   <script src="javascript/controller/begin-streaming.js"></script>
   <script src="javascript/controller/frame-difference.js"></script>
   <script src="javascript/controller/get-coordinates.js"></script>
@@ -58,9 +68,11 @@
     controller
   </h1>
 
-  <form id="form">
-    <input id="room-name-input" type="text"/>
-    <input id="connect-button" type="submit" value="Connect"/>
-  </form>
+  <!-- <form id="form"> -->
+    <!-- <input id="room-name-input" type="text"/> -->
+    <!-- <input id="connect-button" type="submit" value="Connect"/> -->
+  <!-- </form> -->
+  <input id="room-name-input" type="text"/>
+  <button id="connect-button">Connect</button>
 </body>
 </html>

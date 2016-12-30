@@ -2,11 +2,11 @@ function main() {
   if (window.RTCPeerConnection) { // detect if there is webrtc peer connection even
     let enter = document.getElementById('connect-button');
     let roomNameInput = document.getElementById('room-name-input');
-    let form = document.getElementById('form');
+    // let form = document.getElementById('form');
     window.channel = new Channel();
-    form.onsubmit = (event) => {
-      event.preventDefault();
-    };
+    // form.onsubmit = (event) => {
+      // event.preventDefault();
+    // };
     enter.addEventListener('click', (event) => {
       let roomName = roomNameInput.value;
 
@@ -29,3 +29,11 @@ function main() {
 }
 
 window.onload = main;
+
+document.addEventListener('deviceready', () => {
+  if (cordova.platformId === 'ios') {
+    cordova.plugins.iosrtc.registerGlobals();
+  }
+
+  main();
+});

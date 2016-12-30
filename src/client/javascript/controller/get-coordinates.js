@@ -1,4 +1,5 @@
 // could speed this up by using a typed 2d array rather than a canvas context
+// booleans?
 // todo: do not send anything if no differences between the frames, to distinguish from not enough differences
 function getCoordinates(differenceMap, xName = 'x', yName = 'y') {
   let width = differenceMap.canvas.width;
@@ -10,6 +11,7 @@ function getCoordinates(differenceMap, xName = 'x', yName = 'y') {
   let totalPixels = 0;
 
   let differenceMapImageData = differenceMap.getImageData(0, 0, width, height);
+
   for (let i = 0; i < differenceMapImageData.data.length; i += 4) {
     if (differenceMapImageData.data[i] === 0) {
       let coord = indexToCoordinate(i / 4, width);
@@ -40,16 +42,19 @@ function getCoordinates(differenceMap, xName = 'x', yName = 'y') {
 function checkIsPixelSurrounded(coord, imageData, width) {
   let indexes = [];
   let isSurrounded = true;
+
   indexes.push(coordinateToIndex(coord.x + 1, coord.y + 1, width));
+  // indexes.push(coordinateToIndex(coord.x - 1, coord.y - 1, width));
   indexes.push(coordinateToIndex(coord.x, coord.y + 1, width));
   indexes.push(coordinateToIndex(coord.x + 1, coord.y, width));
-  indexes.push(coordinateToIndex(coord.x - 1, coord.y - 1, width));
-  indexes.push(coordinateToIndex(coord.x, coord.y - 1, width));
-  indexes.push(coordinateToIndex(coord.x - 1, coord.y, width));
+  // indexes.push(coordinateToIndex(coord.x, coord.y - 1, width));
+  // indexes.push(coordinateToIndex(coord.x - 1, coord.y, width));
 
-  for (let i of indexes) {
-    isSurrounded = isSurrounded && imageData.data[i] === 255;
+  for (let i of indexes) { // each index must be multiplied by 4
+    isSurrounded = isSurrounded && (imageData.data[i * 4] === 0); // this line, look it over
   }
+
+  // console.log(indexes, isSurrounded);
 
   return isSurrounded;
 }

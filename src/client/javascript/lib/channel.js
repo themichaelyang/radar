@@ -24,7 +24,7 @@
     DEFAULT_CONFIG.timeout = 10000; // 10 seconds
 
     channel.init = function(config = DEFAULT_CONFIG) {
-      socket = io();
+      socket = io('https://hoverhand.herokuapp.com/');
       channel.config = config;
     };
 
